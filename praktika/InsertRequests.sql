@@ -1,9 +1,3 @@
-/*
--- Query: SELECT * FROM database.requests
-LIMIT 0, 1000
-
--- Date: 2022-06-09 16:40
-*/
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO requests (`id_request`,`number_request`,`date_create`,`time_request`,`number_client`,`services`,`status_request`,`date_close`,`rental_time`) VALUES (1,'45462526/12.03.2022','2022-03-12','09:10:00',45462526,'34, 31, 353, 336','Новая','','120 минут');
 INSERT INTO requests (`id_request`,`number_request`,`date_create`,`time_request`,`number_client`,`services`,`status_request`,`date_close`,`rental_time`) VALUES (2,'45462527/13.03.2022','2022-03-13','10:10:00',45462527,'98, 45, 89, 99, 123','В прокате','','600 минут');
