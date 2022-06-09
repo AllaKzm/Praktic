@@ -1,9 +1,3 @@
-/*
--- Query: SELECT * FROM database.employeers
-LIMIT 0, 1000
-
--- Date: 2022-06-09 01:42
-*/
 INSERT INTO employeers (`id_employeer`,`post`,`name`,`login`,`password`,`lastLogIn`,`StatusLogIn`) VALUES ('ID 101','Продавец','Иванов Иван Иванович','Ivanov@namecomp.ru','2L6KZG','15:05:2022 13:13:00','Успешно');
 INSERT INTO employeers (`id_employeer`,`post`,`name`,`login`,`password`,`lastLogIn`,`StatusLogIn`) VALUES ('ID 102','Продавец','Петров Петр Петрович','petrov@namecomp.ru','uzWC67','15:05:2022 13:13:00','Успешно');
 INSERT INTO employeers (`id_employeer`,`post`,`name`,`login`,`password`,`lastLogIn`,`StatusLogIn`) VALUES ('ID 103','Администратор','Федоров Федор Федорович','fedorov@namecomp.ru','8ntwUp','15:05:2022 13:13:00','Успешно');
