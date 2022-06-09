@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>219</height>
+    <width>443</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="palette">
@@ -459,9 +459,9 @@
    <widget class="QPushButton" name="autorization_btn">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>160</y>
-      <width>121</width>
+      <x>130</x>
+      <y>360</y>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
@@ -921,21 +921,18 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
-      <width>361</width>
-      <height>101</height>
+      <y>140</y>
+      <width>401</width>
+      <height>111</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="2,7" columnstretch="2,7" rowminimumheight="2,7" columnminimumwidth="2,7">
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="2,7,0" columnstretch="2,7" rowminimumheight="2,7,0" columnminimumwidth="2,7">
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="line_login">
        <property name="font">
         <font>
          <family>Comic Sans MS</family>
         </font>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Пароль:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -951,12 +948,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="line_login">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
          <family>Comic Sans MS</family>
         </font>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Пароль:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -969,7 +969,80 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>Comic Sans MS</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Введите капчу:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>401</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Авторизуйтесь для входа в систему&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>401</width>
+      <height>82</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Горнолыжный курорт «Игора»&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="logo">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>C:/Users/GANSOR/Downloads/Practic-Aleksandr/Practic-Aleksandr/img/logo_mini.png</pixmap>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGraphicsView" name="captcha_gen">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>260</y>
+      <width>401</width>
+      <height>81</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
