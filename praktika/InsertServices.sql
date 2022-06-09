@@ -1,9 +1,3 @@
-/*
--- Query: SELECT * FROM database.services
-LIMIT 0, 1000
-
--- Date: 2022-06-09 14:15
-*/
 INSERT INTO services (`id_service`,`name_service`,`code_service`,`price_for_hour`) VALUES ('123','Подъем на 3 уровень','638VVNQ3','1200');
 INSERT INTO services (`id_service`,`name_service`,`code_service`,`price_for_hour`) VALUES ('31','Прокат сноуборда','JUR8R','1200');
 INSERT INTO services (`id_service`,`name_service`,`code_service`,`price_for_hour`) VALUES ('336','Прокат лыж','8HFJHG443','800');
