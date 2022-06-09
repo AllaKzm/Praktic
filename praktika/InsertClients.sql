@@ -1,9 +1,3 @@
-/*
--- Query: SELECT * FROM database.clients
-LIMIT 0, 1000
-
--- Date: 2022-06-09 01:43
-*/
 INSERT INTO clients (`name`,`number_client`,`passport`,`datebirth`,`address`,`email`,`password`) VALUES ('Фролов Андрей Иванович',45462526,'Серия 1180 Номер 176596','2001-07-14','344288, г. Санкт-Петербург, ул. Чехова, 1, кв. 34','gohufreilagrau-3818@yopmail.com','cl12345');
 INSERT INTO clients (`name`,`number_client`,`passport`,`datebirth`,`address`,`email`,`password`) VALUES ('Николаев Даниил Всеволодович',45462527,'Серия 2280 Номер 223523','2001-02-10','614164, г. Санкт-Петербург, ул. Степная, 30, кв. 75','xawugosune-1385@yopmail.com','cl12346');
 INSERT INTO clients (`name`,`number_client`,`passport`,`datebirth`,`address`,`email`,`password`) VALUES ('Снегирев Макар Иванович',45462528,'Серия 4560 Номер 354155','1998-05-21','394242, г. Санкт-Петербург, ул. Коммунистическая, 43, кв. 57','satrahuddusei-4458@yopmail.com','cl12347');
