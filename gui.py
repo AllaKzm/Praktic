@@ -32,10 +32,11 @@ class DialogAutorization(QDialog):
     def autoriz(self):
         login = self.ui.line_log.text()
         password = self.ui.line_pas.text()
-        autpas =self.db.get_pas(login)
+        print (login, password)
+        aut = self.db.get_log(login)
+        autpas=aut[0]
+        role=aut[1]
         if password == autpas:
-            role = self.db.get_role(login)
-            role='Продавец'
             if role == 'Старший смены':
                 self.shif_head_open()
             if role == 'Администратор':
@@ -85,16 +86,6 @@ class DialogAutorization(QDialog):
         self.mesbox.setStandardButtons(QMessageBox.Ok)
         self.mesbox.show()
 
-    '''def login_check(self):
-        login = self.ui.line_log.text()
-        password = self.ui.line_pas.text()
-
-        returned_pass = self.db.get_password(login)
-        role=self.db.get_role(login)
-        if password != returned_pass:
-            self.wrong_pass_msg()
-'''
-
 class ShiftHeadMenu(QMainWindow):
     def __init__(self):
         super(ShiftHeadMenu, self).__init__()
@@ -106,12 +97,29 @@ class AdminMenu(QMainWindow):
         super(AdminMenu, self).__init__()
         self.ui = uic.loadUi("forms/admin.ui", self)
         self.window().setWindowTitle("Admin")
+        self.ui.orders_btn.clicked.connect(self.orders)
+
+    def orders(self,wnd):
+        dialog = DialogTable(wnd)
+        dialog.setWindowTitle("Заказы")
+        dialog.show()
+
 
 class SellerMenu(QMainWindow):
     def __init__(self):
         super(SellerMenu, self).__init__()
         self.ui = uic.loadUi("forms/seller.ui", self)
         self.window().setWindowTitle("Seller")
+
+class DialogTable(QDialog):
+    def __init__(self, wnd, parent=None):
+        self.wnd = wnd
+        super(DialogAutorization, self).__init__(parent)
+        self.ui = uic.loadUi("forms/table.ui", self)
+
+    def open_table(self,):
+        self.table.clear()
+        self.table.setColumnCount()
 
 class Builder:
     def __init__(self):

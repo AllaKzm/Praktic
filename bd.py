@@ -1,4 +1,6 @@
 import pymysql
+import mysql
+from mysql.connector import connect, Error
 
 class Database:
     def __init__(self):
@@ -20,40 +22,43 @@ class Database:
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM REQUESTS")
         requests = cursor.fetchall()
+        cursor.close()
         return requests
 
     def getEmployeers(self):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM EMPLOYEERS")
         employeers = cursor.fetchall()
+        cursor.close()
         return employeers
 
     def getServices(self):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM SERVICES")
         services = cursor.fetchall()
+        cursor.close()
         return services
 
     def getHistory(self):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM EntryHistory")
         history = cursor.fetchall()
+        cursor.close()
         return history
 
-    def get_pas(self, login):
-        cursor = self.connection.cursor()
-        cursor.execute(f"""SELECT password FROM employeers WHERE login = '{login}'""")
-        pas = cursor.fetchone()
-        print(pas)
-        return pas
 
-    def get_role(self,login):
+    def get_log(self, login):
+        log = []
         cursor = self.connection.cursor()
-        cursor.execute(f"""SELECT post FROM employeers WHERE login = '{login}'""")
-        pos = cursor.fetchall()
-        return pos
+        cursor.execute(f"""SELECT password, post FROM employeers WHERE login = '{login}'""")
+        rows = cursor.fetchall()
+        for i in rows :
+            for j in i:
+                log.append(j)
+        return log
+        cursor.close()
+
 
 if __name__ == '__main__':
     D = Database()
-    #D.getEmployeers()
-    D.get_pas('Ivanov@namecomp.ru')
+    print(D.get_log('Ivanov@namecomp.ru'))
