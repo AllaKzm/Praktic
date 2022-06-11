@@ -3,7 +3,7 @@ from bd import Database
 import random
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QDialog, QGraphicsScene
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QDialog, QGraphicsScene, QTableWidgetItem
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -95,15 +95,40 @@ class ShiftHeadMenu(QMainWindow):
 class AdminMenu(QMainWindow):
     def __init__(self):
         super(AdminMenu, self).__init__()
-        self.ui = uic.loadUi("forms/admin.ui", self)
+        self.ui = uic.loadUi("forms/admin2.ui", self)
         self.window().setWindowTitle("Admin")
+        self.db = Database()
         self.ui.orders_btn.clicked.connect(self.orders)
+        self.ui.history_btn.clicked.connect(self.history)
+        self.table = self.ui.tableWidget
 
-    def orders(self,wnd):
-        dialog = DialogTable(wnd)
-        dialog.setWindowTitle("Заказы")
-        dialog.show()
+    def orders(self):
+        self.table.clear()
+        out = self.db.getRequests()
+        self.table.setColumnCount(9)  # кол-во столбцов
+        self.table.setRowCount(len(out))  # кол-во строк
+        self.table.setHorizontalHeaderLabels(['ID', 'код заказа', 'дата создания','Время заказа','Код клиента','Код услуги','статус', 'дата закрытия','время аренды'])
+        for i, order in enumerate(out):
+            for x, field in enumerate(order):  # i, x - координаты ячейки, в которую будем записывать текст
+                item = QTableWidgetItem()
+                item.setText(str(field))  # записываем текст в ячейку
+                if x == 0:  # для id делаем некликабельные ячейки
+                    item.setFlags(Qt.ItemIsEnabled)
+                self.table.setItem(i, x, item)
 
+    def history(self):
+        self.table.clear()
+        out = self.db.getHistory()
+        self.table.setColumnCount(4)  # кол-во столбцов
+        self.table.setRowCount(len(out))  # кол-во строк
+        self.table.setHorizontalHeaderLabels(
+            ['ID', 'Дата входа', 'Дата выхода', 'Id сотрудника'])
+        for i, order in enumerate(out):
+            for x, field in enumerate(order):  # i, x - координаты ячейки, в которую будем записывать текст
+                item = QTableWidgetItem()
+                item.setText(str(field))  # записываем текст в ячейку
+                item.setFlags(Qt.ItemIsEnabled)
+                self.table.setItem(i, x, item)
 
 class SellerMenu(QMainWindow):
     def __init__(self):
@@ -111,15 +136,6 @@ class SellerMenu(QMainWindow):
         self.ui = uic.loadUi("forms/seller.ui", self)
         self.window().setWindowTitle("Seller")
 
-class DialogTable(QDialog):
-    def __init__(self, wnd, parent=None):
-        self.wnd = wnd
-        super(DialogAutorization, self).__init__(parent)
-        self.ui = uic.loadUi("forms/table.ui", self)
-
-    def open_table(self,):
-        self.table.clear()
-        self.table.setColumnCount()
 
 class Builder:
     def __init__(self):

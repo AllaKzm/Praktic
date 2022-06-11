@@ -1,4 +1,5 @@
 import pymysql
+import datetime
 import mysql
 from mysql.connector import connect, Error
 
@@ -41,11 +42,10 @@ class Database:
 
     def getHistory(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM EntryHistory")
+        cursor.execute("SELECT * FROM History")
         history = cursor.fetchall()
         cursor.close()
         return history
-
 
     def get_log(self, login):
         log = []
