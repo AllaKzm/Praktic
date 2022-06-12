@@ -42,7 +42,7 @@
       <height>501</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,17">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,9">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="topMargin">
@@ -204,7 +204,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -350,7 +350,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -496,7 +496,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -665,7 +665,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -811,7 +811,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -957,7 +957,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -1132,7 +1132,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -1278,7 +1278,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -1424,7 +1424,7 @@
              </brush>
             </colorrole>
             <colorrole role="PlaceholderText">
-             <brush brushstyle="SolidPattern">
+             <brush brushstyle="NoBrush">
               <color alpha="128">
                <red>0</red>
                <green>0</green>
@@ -1449,14 +1449,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="history"/>
-       <widget class="QWidget" name="orders"/>
-       <widget class="QWidget" name="expenses"/>
-      </widget>
+      <widget class="QTableWidget" name="tableWidget"/>
      </item>
     </layout>
    </widget>

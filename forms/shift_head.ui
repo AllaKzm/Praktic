@@ -52,7 +52,7 @@
         <number>200</number>
        </property>
        <item>
-        <widget class="QPushButton" name="product_btn">
+        <widget class="QPushButton" name="add_order_btn">
          <property name="font">
           <font>
            <family>Comic Sans MS</family>
@@ -60,7 +60,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Товар</string>
+          <string>Добавить заказ</string>
          </property>
         </widget>
        </item>
@@ -515,17 +515,14 @@
           </font>
          </property>
          <property name="text">
-          <string>Оборудование</string>
+          <string>Принять оборудование</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-       <widget class="QWidget" name="equipment"/>
-       <widget class="QWidget" name="product"/>
-      </widget>
+      <widget class="QTableWidget" name="tableWidget"/>
      </item>
     </layout>
    </widget>
