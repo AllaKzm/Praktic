@@ -9,8 +9,8 @@ class Database:
             host='localhost',
             port=3306,
             user='root',
-            password='',
-            database='igora',
+            password='Cahrxisjy8252',
+            database='igora_3',
         )
 
     def getCLients(self):
