@@ -27,7 +27,33 @@
      <widget class="QTableWidget" name="tableWidget_2"/>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,2,2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,4,2,2,2">
+      <item>
+       <widget class="QPushButton" name="close_btn_2">
+        <property name="font">
+         <font>
+          <family>Comic Sans MS</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Закрыть</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <widget class="QPushButton" name="add_btn_2">
         <property name="font">

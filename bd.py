@@ -9,8 +9,8 @@ class Database:
             host='localhost',
             port=3306,
             user='root',
-            password='Cahrxisjy8252',
-            database='igora_3',
+            password='',
+            database='igora',
         )
 
     def getCLients(self):
@@ -25,6 +25,17 @@ class Database:
         requests = cursor.fetchall()
         cursor.close()
         return requests
+
+    def insertRequests(self, number_request, date_create, time_request, number_client, services,
+                       status_request, rental_time):
+        cursor = self.connection.cursor()
+        cursor.execute(
+            f"INSERT INTO requests"
+            f"(`number_request`, `date_create`, `time_request`, `number_client`, `services`, `status_request`, `rental_time`)"
+            f"VALUES ('{number_request}', '{date_create}', '{time_request}', '{number_client}', '{services}', '{status_request}', '{rental_time}')"
+        )
+        cursor.close()
+        self.connection.commit()
 
     def getEmployeers(self):
         cursor = self.connection.cursor()
@@ -46,6 +57,17 @@ class Database:
         history = cursor.fetchall()
         cursor.close()
         return history
+
+    def check_login(self):
+        log = []
+        cursor = self.connection.cursor()
+        cursor.execute(f"""SELECT login FROM employeers""")
+        rows = cursor.fetchall()
+        for i in rows:
+            for j in i:
+                log.append(j)
+        return log
+        cursor.close()
 
     def get_log(self, login):
         log = []

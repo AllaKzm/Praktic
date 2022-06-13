@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = uic.loadUi("forms/admin.ui", self)
-        self.setWindowTitle("Эм, а как назвать-то?")
+        self.setWindowTitle("ничто")
 
 
     def authoriz(self, wnd):
@@ -26,10 +26,10 @@ class DialogAutorization(QDialog):
         self.ui = uic.loadUi("forms/auth.ui", self)
         self.setWindowTitle("Авторизация?")
         self.scene = QGraphicsScene(0, 0, 350, 50)
+        self.scene.clear()
         self.ui.autorization_btn.clicked.connect(self.autoriz)
         self.ui.captcha_gen.setScene(self.scene)
         self.ui.reboot_btn.clicked.connect(self.gen_captcha)
-        self.gen_captcha()
         self.db = Database()
         self.enter_try = 0
         self.cur_captcha = None
@@ -38,25 +38,40 @@ class DialogAutorization(QDialog):
         login = self.ui.line_log.text()
         password = self.ui.line_pas.text()
 
-        print (login, password)
-        aut = self.db.get_log(login)
-        autpas=aut[0]
-        role=aut[1]
+        if self.enter_try == 2:
+            self.gen_captcha()
 
-        if self.ui.line_cap.text() != self.cur_captcha:
-            self.wrong_captcha()
-            self.enter_try += 1
-        elif password == autpas:
-            if role == 'Старший смены':
-                self.shif_head_open()
-            if role == 'Администратор':
-                self.admin_open()
-            if role == 'Продавец':
-                self.seller_open()
+
+        if login == '' or password == '':
+           self.empty_pole()
+
+        if login not in self.db.check_login():
+            self.wrong_log_msg()
+            self.enter_try+=1
+
         else:
-            self.enter_try += 1
-            self.wrong_pass_msg()
-            if self.enter_try == 3:
+            aut = self.db.get_log(login)
+            autpas = aut[0]
+            role = aut[1]
+
+            if self.enter_try > 1 and self.ui.line_cap.text() != self.cur_captcha:
+                self.wrong_captcha()
+                self.enter_try += 1
+                return
+
+            if password != autpas:
+                self.enter_try += 1
+                self.wrong_pass_msg()
+            else:
+                if role == 'Старший смены':
+                 self.shif_head_open()
+                if role == 'Администратор':
+                    self.admin_open()
+                if role == 'Продавец':
+                    self.seller_open()
+
+
+        if self.enter_try == 5:
                 self.ui.autorization_btn.setEnabled(True)
 
     def shif_head_open(self):
@@ -106,7 +121,14 @@ class DialogAutorization(QDialog):
     def wrong_pass_msg(self):
         self.mesbox = QMessageBox(self)
         self.mesbox.setWindowTitle("Ошибка ввода")
-        self.mesbox.setText("Неверно введен пароль или логин.")
+        self.mesbox.setText("Неверно введен пароль.")
+        self.mesbox.setStandardButtons(QMessageBox.Ok)
+        self.mesbox.show()
+
+    def wrong_log_msg(self):
+        self.mesbox = QMessageBox(self)
+        self.mesbox.setWindowTitle("Ошибка ввода")
+        self.mesbox.setText("Неверно введен логин.")
         self.mesbox.setStandardButtons(QMessageBox.Ok)
         self.mesbox.show()
 
@@ -114,16 +136,33 @@ class ShiftHeadMenu(QMainWindow):
     def __init__(self):
         super(ShiftHeadMenu, self).__init__()
         self.ui = uic.loadUi("forms/shift_head.ui", self)
-        self.window().setWindowTitle("ShifHead")
+        self.window().setWindowTitle("ShiftHead")
+        self.ui.back_btn.clicked.connect(self.exit)
+        self.ui.add_order_btn.clicked.connect(self.add_order)
+
+    def add_order(self):
+        dialog = DialogAdd()
+        dialog.setWindowTitle("Добавить заказ")
+        dialog.show()
+        dialog.exec_()
+
+
+    def exit(self):
+        dialog = DialogAutorization(self.window)
+        self.ui.close()
+        dialog.setWindowTitle("Авторизация")
+        dialog.show()
+        dialog.exec_()
 
 class AdminMenu(QMainWindow):
     def __init__(self):
         super(AdminMenu, self).__init__()
-        self.ui = uic.loadUi("forms/admin2.ui", self)
+        self.ui = uic.loadUi("forms/admin.ui", self)
         self.window().setWindowTitle("Admin")
         self.db = Database()
         self.ui.orders_btn.clicked.connect(self.orders)
         self.ui.history_btn.clicked.connect(self.history)
+        self.ui.back_btn.clicked.connect(self.exit)
         self.table = self.ui.tableWidget
 
     def orders(self):
@@ -154,28 +193,56 @@ class AdminMenu(QMainWindow):
                 item.setFlags(Qt.ItemIsEnabled)
                 self.table.setItem(i, x, item)
 
+    def exit(self):
+        dialog = DialogAutorization(self.window)
+        self.ui.close()
+        dialog.setWindowTitle("Авторизация")
+        dialog.show()
+        dialog.exec_()
+
+
 class SellerMenu(QMainWindow):
     def __init__(self):
         super(SellerMenu, self).__init__()
         self.ui = uic.loadUi("forms/seller.ui", self)
         self.window().setWindowTitle("Seller")
         self.db = Database()
-        self.ui.order_add_btn.clicked.connect(self.orders)
+        self.ui.order_add_btn.clicked.connect(self.add_order)
         self.table = self.ui.order_table
+        self.ui.back_btn.clicked.connect(self.exit)
 
-    def orders(self):
-        self.table.clear()
-        out = self.db.getRequests()
-        self.table.setColumnCount(9)  # кол-во столбцов
-        self.table.setRowCount(len(out))  # кол-во строк
-        self.table.setHorizontalHeaderLabels(['ID', 'код заказа', 'дата создания','Время заказа','Код клиента','Код услуги','статус', 'дата закрытия','время аренды'])
-        for i, order in enumerate(out):
-            for x, field in enumerate(order):  # i, x - координаты ячейки, в которую будем записывать текст
-                item = QTableWidgetItem()
-                item.setText(str(field))  # записываем текст в ячейку
-                if x == 0:  # для id делаем некликабельные ячейки
-                    item.setFlags(Qt.ItemIsEnabled)
-                self.table.setItem(i, x, item)
+    def exit(self):
+        dialog = DialogAutorization(self.window)
+        self.ui.close()
+        dialog.setWindowTitle("Авторизация")
+        dialog.show()
+        dialog.exec_()
+
+    def add_order(self):
+        dialog = DialogAdd()
+        dialog.setWindowTitle("Добавить заказ")
+        dialog.show()
+        dialog.exec_()
+
+class DialogAdd(QDialog):
+    def __init__(self):
+        super(DialogAdd, self).__init__()
+        self.ui = uic.loadUi("forms/add_order.ui", self)
+        self.setWindowTitle("Добавить")
+        self.db = Database()
+        self.ui.add_btn_2.clicked.connect(self.add)
+
+    def add(self):
+        create_date = self.ui.create_date.text()
+        order_code = self.ui.order_code.text()
+        order_time = self.ui.order_time.text()
+        client_code = self.ui.client_code.text()
+        services = self.ui.services.text()
+        order_status = self.ui.order_status.text()
+        use_time = self.ui.use_time.text()
+        self.db.insertRequests(order_code, create_date,order_time, client_code,services, order_status,use_time)
+        self.ui.close()
+
 
 class Builder:
     def __init__(self):

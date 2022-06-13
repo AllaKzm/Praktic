@@ -60,6 +60,25 @@
        </widget>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,8">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <family>Comic Sans MS</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Код заказа:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="order_code"/>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,8">
         <item>
          <widget class="QLabel" name="label">
@@ -166,7 +185,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="order_status"/>
+         <widget class="QLineEdit" name="order_status"/>
         </item>
        </layout>
       </item>
