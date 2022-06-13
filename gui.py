@@ -38,17 +38,15 @@ class DialogAutorization(QDialog):
         login = self.ui.line_log.text()
         password = self.ui.line_pas.text()
 
-        if self.enter_try == 2:
+        if self.enter_try >= 2:
             self.gen_captcha()
-
 
         if login == '' or password == '':
            self.empty_pole()
 
         if login not in self.db.check_login():
             self.wrong_log_msg()
-            self.enter_try+=1
-
+            self.enter_try += 1
         else:
             aut = self.db.get_log(login)
             autpas = aut[0]
@@ -57,7 +55,6 @@ class DialogAutorization(QDialog):
             if self.enter_try > 1 and self.ui.line_cap.text() != self.cur_captcha:
                 self.wrong_captcha()
                 self.enter_try += 1
-                return
 
             if password != autpas:
                 self.enter_try += 1
@@ -69,7 +66,6 @@ class DialogAutorization(QDialog):
                     self.admin_open()
                 if role == 'Продавец':
                     self.seller_open()
-
 
         if self.enter_try == 5:
                 self.ui.autorization_btn.setEnabled(True)
