@@ -117,7 +117,7 @@ class DialogAutorization(QDialog):
     def wrong_pass_msg(self):
         self.mesbox = QMessageBox(self)
         self.mesbox.setWindowTitle("Ошибка ввода")
-        self.mesbox.setText("Неверно введен пароль.")
+        self.mesbox.setText("Неверно введен пароль!")
         self.mesbox.setStandardButtons(QMessageBox.Ok)
         self.mesbox.show()
 
@@ -134,13 +134,29 @@ class ShiftHeadMenu(QMainWindow):
         self.ui = uic.loadUi("forms/shift_head.ui", self)
         self.window().setWindowTitle("ShiftHead")
         self.ui.back_btn.clicked.connect(self.exit)
+        self.table = self.ui.tableWidget
+        self.db = Database()
         self.ui.add_order_btn.clicked.connect(self.add_order)
+        self.orders()
 
     def add_order(self):
         dialog = DialogAdd()
         dialog.setWindowTitle("Добавить заказ")
         dialog.show()
         dialog.exec_()
+
+    def orders(self):
+        self.table.clear()
+        out = self.db.getRequests()
+        self.table.setColumnCount(9)  # кол-во столбцов
+        self.table.setRowCount(len(out))  # кол-во строк
+        self.table.setHorizontalHeaderLabels(['ID', 'код заказа', 'дата создания','Время заказа','Код клиента','Код услуги','статус', 'дата закрытия','время аренды'])
+        for i, order in enumerate(out):
+            for x, field in enumerate(order):  # i, x - координаты ячейки, в которую будем записывать текст
+                item = QTableWidgetItem()
+                item.setText(str(field))  # записываем текст в ячейку
+                item.setFlags(Qt.ItemIsEnabled)
+                self.table.setItem(i, x, item)
 
 
     def exit(self):
@@ -202,10 +218,12 @@ class SellerMenu(QMainWindow):
         super(SellerMenu, self).__init__()
         self.ui = uic.loadUi("forms/seller.ui", self)
         self.window().setWindowTitle("Seller")
+        self.table = self.ui.order_table
         self.db = Database()
         self.ui.order_add_btn.clicked.connect(self.add_order)
         self.table = self.ui.order_table
         self.ui.back_btn.clicked.connect(self.exit)
+        self.orders()
 
     def exit(self):
         dialog = DialogAutorization(self.window)
@@ -213,6 +231,19 @@ class SellerMenu(QMainWindow):
         dialog.setWindowTitle("Авторизация")
         dialog.show()
         dialog.exec_()
+
+    def orders(self):
+        self.table.clear()
+        out = self.db.getRequests()
+        self.table.setColumnCount(9)  # кол-во столбцов
+        self.table.setRowCount(len(out))  # кол-во строк
+        self.table.setHorizontalHeaderLabels(['ID', 'код заказа', 'дата создания','Время заказа','Код клиента','Код услуги','статус', 'дата закрытия','время аренды'])
+        for i, order in enumerate(out):
+            for x, field in enumerate(order):  # i, x - координаты ячейки, в которую будем записывать текст
+                item = QTableWidgetItem()
+                item.setText(str(field))  # записываем текст в ячейку
+                item.setFlags(Qt.ItemIsEnabled)
+                self.table.setItem(i, x, item)
 
     def add_order(self):
         dialog = DialogAdd()
@@ -238,6 +269,7 @@ class DialogAdd(QDialog):
         use_time = self.ui.use_time.text()
         self.db.insertRequests(order_code, create_date,order_time, client_code,services, order_status,use_time)
         self.ui.close()
+
 
 
 class Builder:
